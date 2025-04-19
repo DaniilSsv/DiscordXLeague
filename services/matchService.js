@@ -5,7 +5,7 @@ const getMatchHistory = async (puuid, count = 5) => {
   try {
     // Get match IDs
     const { data: matchIds } = await axios.get(
-      `${RIOT_EUROPE}/match/v5/matches/by-puuid/${puuid}/ids`,
+      `${RIOT_EUROPE}/match/v5/matches/by-puuid/${puuid}/ids?type=ranked`,
       {
         params: { count },
         headers: { 'X-Riot-Token': process.env.RIOT_API_KEY }
