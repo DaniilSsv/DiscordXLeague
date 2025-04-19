@@ -21,7 +21,7 @@ module.exports = {
       
       // Validation
       if (!gameName || !tagLine || tagLine.length < 2) {
-        throw new Error('Invalid format. Use: **SummonerName#TAG**\nExample: `/link Kaljmarik#EUW`');
+        throw new Error('Invalid format. Use: **SummonerName#TAG**  Example: `/link Kaljmarik#EUW`');
       }
 
       // Check existing link
@@ -42,7 +42,7 @@ module.exports = {
       const successEmbed = new EmbedBuilder()
         .setColor(0x00AE86)
         .setTitle('🔗 Account Linked Successfully')
-        .setThumbnail('https://i.imgur.com/8Km9tLL.png')
+        .setThumbnail('https://icon-library.com/icon/link-icon-svg-27.html.html')
         .addFields(
           { name: 'Riot ID', value: `\`${verifiedName}#${verifiedTag}\``, inline: true },
           { name: 'PUUID', value: `\`${puuid.slice(0, 8)}...\``, inline: true }
@@ -52,7 +52,7 @@ module.exports = {
       await interaction.editReply({ embeds: [successEmbed] });
 
     } catch (error) {
-      console.error(`[LINK ERROR] ${interaction.user.id}:`, error);
+      console.log(`[LINK ERROR] ${interaction.user.id}:`, error);
       
       const errorEmbed = new EmbedBuilder()
         .setColor(0xFF0000)

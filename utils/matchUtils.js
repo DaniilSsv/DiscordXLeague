@@ -101,4 +101,4 @@ const createActionRow = (matchCount, currentIndex = 0) => {
   ];
 };
 
-export { createMatchEmbed, createErrorEmbed, createActionRow, formatNumber, getRuneMeta };
+module.exports = { createMatchEmbed, createErrorEmbed, createActionRow, formatNumber, getRuneMeta };

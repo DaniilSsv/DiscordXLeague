@@ -4,11 +4,7 @@ const {
 
 const { getMatchHistory } = require('../services/matchService');
 const { getLinkedUser, storeMatchesForUser } = require('../services/userService');
-const {
-  createMatchEmbed,
-  createErrorEmbed,
-  createActionRow
-} = require('../utils/matchUtils');
+const {createMatchEmbed, createErrorEmbed, createActionRow } = require('../utils/matchUtils');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -44,7 +40,7 @@ module.exports = {
 
       storeMatchesForUser(interaction.user.id, matches);
 
-      const embeds = matches.map(match => createMatchEmbed(match, user));
+      const embeds = matches.map(match => createMatchEmbed(match));
       const components = createActionRow(matches.length, 0);
 
       await interaction.editReply({
