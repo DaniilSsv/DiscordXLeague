@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { RIOT_EUROPE, RIOT_REGIONAL } = require('./config');
+const { RIOT_EUROPE } = require('./config');
 
 const getMatchHistory = async (puuid, count = 5) => {
   try {

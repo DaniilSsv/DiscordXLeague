@@ -1,10 +1,9 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+// utils/matchUtils.js
+import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 
-function formatNumber(num) {
-  return new Intl.NumberFormat().format(num);
-}
+const formatNumber = (num) => new Intl.NumberFormat().format(num);
 
-function createMatchEmbed(match, user) {
+const createMatchEmbed = (match, user) => {
   const embed = new EmbedBuilder()
     .setColor(match.win ? 0x4CAF50 : 0xF44336)
     .setTitle(`${match.champion} ${match.win ? 'Victory' : 'Defeat'}`)
@@ -23,20 +22,27 @@ function createMatchEmbed(match, user) {
     embed.addFields({ name: 'First Blood', value: '✅ Secured first blood', inline: true });
   }
 
+  // RUNES
+  const [primary, secondary] = match.perks.styles;
+  const primaryRunes = primary.selections.map(s => s.perk).join(', ');
+  const secondaryRunes = secondary.selections.map(s => s.perk).join(', ');
+
+  embed.addFields({
+    name: 'Runes',
+    value: `Primary (Style ${primary.style}): ${primaryRunes}\nSecondary (Style ${secondary.style}): ${secondaryRunes}`
+  });
+
   return embed;
-}
+};
 
-function createErrorEmbed(title, description) {
-  return new EmbedBuilder()
-    .setColor(0xFF0000)
-    .setTitle(`❌ ${title}`)
-    .setDescription(description)
-    .setFooter({ text: 'Try again later or contact support' });
-}
+const createErrorEmbed = (title, description) => new EmbedBuilder()
+  .setColor(0xFF0000)
+  .setTitle(`❌ ${title}`)
+  .setDescription(description)
+  .setFooter({ text: 'Try again later or contact support' });
 
-function createActionRow(matchCount, currentIndex = 0) {
+const createActionRow = (matchCount, currentIndex = 0) => {
   if (matchCount <= 1) return [];
-
   return [
     new ActionRowBuilder().addComponents(
       new ButtonBuilder()
@@ -51,11 +57,6 @@ function createActionRow(matchCount, currentIndex = 0) {
         .setDisabled(currentIndex >= matchCount - 1)
     )
   ];
-}
-
-module.exports = {
-  createMatchEmbed,
-  createErrorEmbed,
-  createActionRow,
-  formatNumber
 };
+
+export { createMatchEmbed, createErrorEmbed, createActionRow, formatNumber };
